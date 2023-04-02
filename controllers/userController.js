@@ -12,7 +12,7 @@ module.exports.createUser = async (req, res, next) => {
 
 module.exports.getAll = async (req, res, next) => {
     try {
-        const allUsers = await User.find();
+        const allUsers = await User.find().populate('comment')
         res.status(200).send(allUsers);
     } catch (error) {
         next(error)

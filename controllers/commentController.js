@@ -2,8 +2,9 @@ const {Comment} = require('../models');
 
 module.exports.createComment = async (req, res, next) => {
     try {
-        const {body, params: {userId}} = req;
-        const createdComment = await Comment.create({...body, author: userId});
+        const {body, params: {postId, userId}} = req;
+        console.log(body)
+        const createdComment = await Comment.create({...body, author: userId, post: postId});
         res.status(201).send(createdComment);
     } catch (error) {
         next(error)
@@ -12,7 +13,7 @@ module.exports.createComment = async (req, res, next) => {
 
 module.exports.getAllComment = async (req, res, next) => {
     try {
-        const allComments = await Comment.find().populate('author');
+        const allComments = await Comment.find().populate("author");
         res.status(200).send(allComments);
     } catch (error) {
         next(error)
@@ -21,8 +22,8 @@ module.exports.getAllComment = async (req, res, next) => {
 
 module.exports.getOneComment = async (req, res, next) => {
     try {
-        const {params: {CommentId}} = req;
-        const oneComment = await Comment.findById(CommentId).populate("author");
+        const {params: {commentId}} = req;
+        const oneComment = await Comment.findById(commentId).populate("author");
         res.status(200).send(oneComment);
     } catch (error) {
         next(error)

@@ -5,4 +5,4 @@ const app = express();
 app.use(express.json());
 app.use('/api', apiRouter);
 
-module.export = app;
+module.exports = app;
